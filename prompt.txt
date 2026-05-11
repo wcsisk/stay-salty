@@ -1,0 +1,43 @@
+I have a family beach trip website called "Stay Salty 2026" for Isle of Palms, SC (May 30 – June 6, 2026). I want to build it so all data loads live from Google Sheets JSON feeds.
+
+Here are my 5 Google Sheets JSON URLs:
+- Itinerary: https://docs.google.com/spreadsheets/d/1tY7nPGrznVVvA2wj4WlR-FjYJXJf_C8nGP4gCoOo7o4/gviz/tq?tqx=out:json&sheet=Itinerary
+- Dinners: https://docs.google.com/spreadsheets/d/1tY7nPGrznVVvA2wj4WlR-FjYJXJf_C8nGP4gCoOo7o4/gviz/tq?tqx=out:json&sheet=Dinners
+- Outings: https://docs.google.com/spreadsheets/d/1tY7nPGrznVVvA2wj4WlR-FjYJXJf_C8nGP4gCoOo7o4/gviz/tq?tqx=out:json&sheet=Outings
+- People: https://docs.google.com/spreadsheets/d/1tY7nPGrznVVvA2wj4WlR-FjYJXJf_C8nGP4gCoOo7o4/gviz/tq?tqx=out:json&sheet=People
+- Packing: https://docs.google.com/spreadsheets/d/1tY7nPGrznVVvA2wj4WlR-FjYJXJf_C8nGP4gCoOo7o4/gviz/tq?tqx=out:json&sheet=Packing
+
+Please do the following:
+
+1. Create a project structure with: index.html, css/style.css, js/data.js, js/app.js
+
+2. In js/data.js, write a fetchSheet(url) function that fetches a Google Sheets gviz JSON feed, strips the leading "/*O_o*/" and parses the JSON, then maps the rows into clean objects using the column headers from row index 2 (row 3 in the sheet — rows 1 and 2 are a merged title/subtitle).
+
+3. Build these sections from live data:
+   - Itinerary: day-by-day accordion grouped by Date, with Morning/Afternoon/Evening sub-blocks. Columns: Date, Day, Time Block, Activity, Detail, Who
+   - Dinners: cards for each night. Columns: Date, Night, Restaurant/Meal, Type, Address, Reservation Time, Notes. Include a Google Maps link using the Address column.
+   - Outings: filterable grid by Category (Beach, Food, Kids, Nature). Columns: Activity, Category, Suggested Day, Time, Cost, Good For, Notes/Booking
+   - People: roster cards with avatar initials circle using Initials and Avatar Color columns. Columns: Name, Family Unit, Role, Arrives, Leaves, Room, Initials, Avatar Color
+   - Packing: grouped checklist by Category with checkbox state stored in localStorage. Columns: Item, Category, Assigned To, Packed?, Notes
+
+4. Visual design — use this color palette throughout:
+   - Ocean deep navy: #1A4D66
+   - Sand: #F5EFE0
+   - Coral: #E07A5F
+   - Palm green: #3D6B4F
+   - White: #FFFDF7
+   - Use Google Fonts: Playfair Display (headings) and DM Sans (body)
+   - Sticky nav, hero section with live countdown to 2026-05-30T16:00:00
+   - Alternating section backgrounds (sand and white)
+   - Cards with subtle borders and hover effects
+
+5. Also include these static sections (no Google Sheets data needed):
+   - Weather strip showing typical late May / early June Isle of Palms forecast (emoji icons, high/low temps)
+   - Photo gallery with placeholder cards (emoji + label) filterable by year (2023, 2024, 2025)
+   - Trip history timeline for 2019, 2021, 2022, 2023, 2024, 2025, 2026
+
+6. Show a loading spinner while data fetches and a friendly error message if a fetch fails.
+
+7. Make sure it works when opened directly as a local HTML file — use the full Google Sheets gviz URLs directly, no server or proxy needed.
+
+The property name is "Stay Salty" at 712 Ocean Blvd., Isle of Palms, SC. Check-in is Saturday May 30 at 4:00 PM, check-out is Saturday June 6 at 10:00 AM.
