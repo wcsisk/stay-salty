@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packing — Stay Salty 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Stay Salty 2026</a>
+      <ul class="nav-links">
+        <li><a href="itinerary.html">Itinerary</a></li>
+        <li><a href="dinners.html">Dinners</a></li>
+        <li><a href="outings.html">Outings</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="packing.html">Packing</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="page-banner">
+    <div class="container">
+      <p class="page-eyebrow">May 30 &ndash; June 6, 2026 &middot; Isle of Palms, SC</p>
+      <h1>Packing List</h1>
+      <p class="page-subtitle">Check things off as you pack &mdash; progress is saved on this device</p>
+    </div>
+  </div>
+
+  <main class="page-main">
+    <div class="container">
+      <div id="packing-loading" class="spinner-wrap" hidden>
+        <div class="spinner"></div><p>Loading packing list&hellip;</p>
+      </div>
+      <div id="packing-error" class="error-box" hidden></div>
+      <div id="packing-progress" hidden>
+        <div class="progress-bar-wrap"><div class="progress-bar" id="packing-bar"></div></div>
+        <p class="progress-label" id="packing-label"></p>
+      </div>
+      <div id="packing-content" hidden></div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Stay Salty 2026</strong> &middot; 712 Ocean Blvd, Isle of Palms, SC</p>
+      <p>Check-in: Sat May 30 at 4:00 PM &nbsp;&middot;&nbsp; Check-out: Sat Jun 6 at 10:00 AM</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

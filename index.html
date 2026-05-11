@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stay Salty 2026 — Isle of Palms, SC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────── -->
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Stay Salty 2026</a>
+      <ul class="nav-links">
+        <li><a href="itinerary.html">Itinerary</a></li>
+        <li><a href="dinners.html">Dinners</a></li>
+        <li><a href="outings.html">Outings</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="packing.html">Packing</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────── -->
+  <header id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Family Beach Trip</p>
+      <h1>Stay Salty 2026</h1>
+      <p class="hero-location">712 Ocean Blvd &middot; Isle of Palms, SC</p>
+      <p class="hero-dates">May 30 &ndash; June 6, 2026</p>
+      <div class="countdown" aria-label="Countdown to trip">
+        <div class="countdown-unit"><span id="cd-days">--</span><label>Days</label></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span id="cd-hours">--</span><label>Hrs</label></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span id="cd-mins">--</span><label>Min</label></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span id="cd-secs">--</span><label>Sec</label></div>
+      </div>
+      <!-- Live conditions — shown below countdown on mobile, hidden on desktop (nav has it) -->
+      <div class="hero-conditions" id="hero-conditions" aria-label="Live conditions">
+        <div class="hc-item hc-loading" id="hc-weather">&#9729;&#65039;</div>
+        <div class="hc-item hc-loading" id="hc-surf">&#127754;</div>
+        <div class="hc-item hc-loading" id="hc-tide">&#8593;</div>
+        <div class="hc-item hc-loading" id="hc-sun">&#127774;</div>
+      </div>
+    </div>
+    <div class="hero-wave" aria-hidden="true"></div>
+  </header>
+
+  <!-- ── Weather Strip ────────────────────────────────────────────────── -->
+  <section id="weather">
+    <div class="container">
+      <h2 class="section-title">Forecast</h2>
+      <p class="section-sub">Typical late May / early June conditions for Isle of Palms</p>
+      <div class="weather-strip">
+        <div class="weather-day">
+          <span class="w-label">Sat 5/30</span>
+          <span class="w-icon">⛅</span>
+          <span class="w-desc">Partly Cloudy</span>
+          <span class="w-temps"><strong>84&deg;</strong>&thinsp;/&thinsp;67&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Sun 5/31</span>
+          <span class="w-icon">☀️</span>
+          <span class="w-desc">Sunny</span>
+          <span class="w-temps"><strong>86&deg;</strong>&thinsp;/&thinsp;69&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Mon 6/1</span>
+          <span class="w-icon">☀️</span>
+          <span class="w-desc">Sunny</span>
+          <span class="w-temps"><strong>87&deg;</strong>&thinsp;/&thinsp;71&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Tue 6/2</span>
+          <span class="w-icon">🌤️</span>
+          <span class="w-desc">Mostly Sunny</span>
+          <span class="w-temps"><strong>85&deg;</strong>&thinsp;/&thinsp;70&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Wed 6/3</span>
+          <span class="w-icon">⛈️</span>
+          <span class="w-desc">PM Storms</span>
+          <span class="w-temps"><strong>83&deg;</strong>&thinsp;/&thinsp;72&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Thu 6/4</span>
+          <span class="w-icon">☀️</span>
+          <span class="w-desc">Sunny</span>
+          <span class="w-temps"><strong>86&deg;</strong>&thinsp;/&thinsp;71&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Fri 6/5</span>
+          <span class="w-icon">🌤️</span>
+          <span class="w-desc">Mostly Sunny</span>
+          <span class="w-temps"><strong>87&deg;</strong>&thinsp;/&thinsp;73&deg;</span>
+        </div>
+        <div class="weather-day">
+          <span class="w-label">Sat 6/6</span>
+          <span class="w-icon">☀️</span>
+          <span class="w-desc">Sunny</span>
+          <span class="w-temps"><strong>85&deg;</strong>&thinsp;/&thinsp;70&deg;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quick Links ──────────────────────────────────────────────────── -->
+  <section class="section-sand">
+    <div class="container">
+      <h2 class="section-title">Plan Your Trip</h2>
+      <p class="section-sub">Everything you need for the week</p>
+      <div class="quicklinks-grid">
+        <a href="itinerary.html" class="quicklink-card">
+          <span class="ql-icon">&#128197;</span>
+          <span class="ql-text"><strong>Itinerary</strong><span>Day-by-day schedule</span></span>
+        </a>
+        <a href="dinners.html" class="quicklink-card">
+          <span class="ql-icon">&#127374;</span>
+          <span class="ql-text"><strong>Dinners</strong><span>Reservations &amp; restaurants</span></span>
+        </a>
+        <a href="outings.html" class="quicklink-card">
+          <span class="ql-icon">&#127940;</span>
+          <span class="ql-text"><strong>Outings</strong><span>Activities &amp; adventures</span></span>
+        </a>
+        <a href="people.html" class="quicklink-card">
+          <span class="ql-icon">&#128106;</span>
+          <span class="ql-text"><strong>People</strong><span>The Stay Salty crew</span></span>
+        </a>
+        <a href="packing.html" class="quicklink-card">
+          <span class="ql-icon">&#129513;</span>
+          <span class="ql-text"><strong>Packing</strong><span>Checklist &amp; assignments</span></span>
+        </a>
+        <a href="gallery.html" class="quicklink-card">
+          <span class="ql-icon">&#128247;</span>
+          <span class="ql-text"><strong>Gallery</strong><span>Memories &amp; past trips</span></span>
+        </a>
+        <a href="history.html" class="quicklink-card">
+          <span class="ql-icon">&#127958;</span>
+          <span class="ql-text"><strong>History</strong><span>Every Stay Salty chapter</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p><strong>Stay Salty 2026</strong> &middot; 712 Ocean Blvd, Isle of Palms, SC</p>
+      <p>Check-in: Sat May 30 at 4:00 PM &nbsp;&middot;&nbsp; Check-out: Sat Jun 6 at 10:00 AM</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
