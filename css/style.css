@@ -20,6 +20,7 @@
 
 /* ─── Reset ─────────────────────────────────────────────────────────────── */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+[hidden] { display:none !important; }
 
 html { scroll-behavior:smooth; scroll-padding-top:68px; }
 
@@ -74,17 +75,20 @@ a:hover { color:var(--coral); }
   display:flex;
   list-style:none;
   gap:2px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
+  flex-shrink:1;
+  min-width:0;
 }
 
 .nav-links a {
   display:block;
   color:rgba(255,253,247,.78);
-  font-size:.85rem;
+  font-size:.82rem;
   font-weight:500;
-  padding:6px 12px;
+  padding:6px 9px;
   border-radius:6px;
   transition:background .18s, color .18s;
+  white-space:nowrap;
 }
 .nav-links a:hover { background:rgba(255,255,255,.15); color:var(--white); }
 
@@ -1192,7 +1196,7 @@ footer strong { color:var(--white); }
 @keyframes ncpulse { 0%,100%{opacity:.25} 50%{opacity:.55} }
 
 /* hide on narrow screens where nav gets crowded */
-@media (max-width:1050px) { .nav-conditions { display:none; } }
+@media (max-width:1350px) { .nav-conditions { display:none; } }
 
 /* ─── Hero Conditions Pills (mobile / mid-width) ────────────────────────── */
 .hero-conditions {
@@ -1226,7 +1230,7 @@ footer strong { color:var(--white); }
 }
 
 /* show hero conditions when the nav widget is hidden */
-@media (max-width:1050px) {
+@media (max-width:1350px) {
   .hero-conditions { display:flex; }
 }
 
