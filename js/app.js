@@ -87,6 +87,9 @@ function renderItinerary(data) {
       const location = e['Location'] || e['Detail']     || '';
       const who      = e['Who']      || '';
       const isLast   = idx === entries.length - 1;
+      const actKey   = LS_ACTIVITY_PREFIX + encodeURIComponent([date, time, activity].join('||'));
+      const isSaved  = localStorage.getItem(actKey) !== null;
+      const cbId     = uid();
 
       return `
         <div class="cruise-entry">
@@ -98,6 +101,18 @@ function renderItinerary(data) {
             <div class="cruise-activity-row">
               <span class="cruise-activity">${esc(activity)}</span>
               ${time ? `<span class="cruise-time">${esc(time)}</span>` : ''}
+              <label class="activity-save-label" for="${cbId}" title="${isSaved ? 'Remove from My Plan' : 'Add to My Plan'}">
+                <input type="checkbox" class="activity-save-cb" id="${cbId}"
+                  ${isSaved ? 'checked' : ''}
+                  data-key="${esc(actKey)}"
+                  data-date="${esc(date)}"
+                  data-day="${esc(label)}"
+                  data-time="${esc(time)}"
+                  data-activity="${esc(activity)}"
+                  data-location="${esc(location)}"
+                  data-who="${esc(who)}">
+                <span class="activity-save-icon">${isSaved ? '&#9733;' : '&#9734;'}</span>
+              </label>
             </div>
             ${location ? `<div class="cruise-location">&#128205; ${esc(location)}</div>` : ''}
             ${who      ? `<div class="cruise-who">${esc(who)}</div>` : ''}
@@ -116,6 +131,24 @@ function renderItinerary(data) {
         <div class="day-events">${eventsHtml}</div>
       </details>`;
   }).join('');
+
+  el.addEventListener('change', e => {
+    if (!e.target.matches('.activity-save-cb')) return;
+    const cb   = e.target;
+    const icon = cb.nextElementSibling;
+    if (cb.checked) {
+      try { localStorage.setItem(cb.dataset.key, JSON.stringify({
+        date: cb.dataset.date, day: cb.dataset.day, time: cb.dataset.time,
+        activity: cb.dataset.activity, location: cb.dataset.location, who: cb.dataset.who,
+      })); } catch {}
+      icon.innerHTML = '&#9733;';
+      cb.closest('.activity-save-label').title = 'Remove from My Plan';
+    } else {
+      try { localStorage.removeItem(cb.dataset.key); } catch {}
+      icon.innerHTML = '&#9734;';
+      cb.closest('.activity-save-label').title = 'Add to My Plan';
+    }
+  });
 }
 
 // ─── Dinners ─────────────────────────────────────────────────────────────────
@@ -223,7 +256,8 @@ function renderPeople(data) {
 // ─── Packing ─────────────────────────────────────────────────────────────────
 // Columns: Item, Category, Assigned To, Packed?, Notes
 
-const LS_PREFIX = 'staySalty2026_packed_';
+const LS_PREFIX          = 'staySalty2026_packed_';
+const LS_ACTIVITY_PREFIX = 'staySalty2026_myActivity_';
 
 function renderPacking(data) {
   const el           = document.getElementById('packing-content');
@@ -665,10 +699,11 @@ const BN_MAIN = [
   { href:'outings.html',   svg:BN_SVG.comp, label:'Explore'  },
 ];
 const BN_MORE = [
-  { href:'people.html',  label:'People'  },
-  { href:'packing.html', label:'Packing' },
-  { href:'gallery.html', label:'Gallery' },
-  { href:'history.html', label:'History' },
+  { href:'my-activities.html', label:'My Plan'  },
+  { href:'people.html',        label:'People'   },
+  { href:'packing.html',       label:'Packing'  },
+  { href:'gallery.html',       label:'Gallery'  },
+  { href:'history.html',       label:'History'  },
 ];
 
 function injectBottomNav() {
@@ -815,6 +850,84 @@ function renderNowCard(data) {
   el.innerHTML = html;
 }
 
+// ─── My Plan ─────────────────────────────────────────────────────────────────
+
+function initMyActivities() {
+  const el = document.getElementById('my-activities-content');
+  if (!el) return;
+
+  const entries = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key || !key.startsWith(LS_ACTIVITY_PREFIX)) continue;
+    try {
+      const d = JSON.parse(localStorage.getItem(key));
+      if (d && d.activity) entries.push({ key, ...d });
+    } catch {}
+  }
+
+  const clearBtn = document.getElementById('my-activities-clear');
+
+  if (!entries.length) {
+    el.innerHTML = '<p class="empty-note">No activities saved yet. Head to the <a href="itinerary.html">Itinerary</a> and tap &#9734; next to activities you want to join.</p>';
+    if (clearBtn) clearBtn.hidden = true;
+    return;
+  }
+
+  if (clearBtn) {
+    clearBtn.hidden = false;
+    clearBtn.onclick = () => {
+      if (confirm('Remove all saved activities?')) {
+        entries.forEach(e => { try { localStorage.removeItem(e.key); } catch {} });
+        initMyActivities();
+      }
+    };
+  }
+
+  entries.sort((a, b) => {
+    const da = new Date(a.date), db = new Date(b.date);
+    if (da - db !== 0) return da - db;
+    const ta = parseEntryTime(a.time) ?? 9999;
+    const tb = parseEntryTime(b.time) ?? 9999;
+    return ta - tb;
+  });
+
+  const days = {};
+  for (const e of entries) {
+    const d = e.date || 'TBD';
+    if (!days[d]) days[d] = { day: e.day || '', entries: [] };
+    days[d].entries.push(e);
+  }
+
+  el.innerHTML = Object.entries(days).map(([date, { day, entries: dayEntries }]) => {
+    const items = dayEntries.map(e => `
+      <div class="my-activity-item">
+        <div class="my-activity-row">
+          <div class="my-activity-info">
+            <span class="cruise-activity">${esc(e.activity)}</span>
+            ${e.time ? `<span class="cruise-time">${esc(e.time)}</span>` : ''}
+          </div>
+          <button class="remove-activity-btn" data-key="${esc(e.key)}" aria-label="Remove">&#10005;</button>
+        </div>
+        ${e.location ? `<div class="cruise-location">&#128205; ${esc(e.location)}</div>` : ''}
+        ${e.who ? `<div class="cruise-who">${esc(e.who)}</div>` : ''}
+      </div>`).join('');
+
+    return `
+      <div class="my-activities-day">
+        <div class="my-activities-day-header">${esc(date)}${day ? ` &mdash; ${esc(day)}` : ''}</div>
+        ${items}
+      </div>`;
+  }).join('');
+
+  el.querySelectorAll('.remove-activity-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      try { localStorage.removeItem(btn.dataset.key); } catch {}
+      initMyActivities();
+    });
+  });
+}
+
 // ─── History ─────────────────────────────────────────────────────────────────
 
 function initHistory() {
@@ -841,6 +954,7 @@ async function init() {
   if (document.getElementById('cd-days')) initCountdown();
   initGallery();
   initHistory();
+  initMyActivities();
   renderNowCard(null);
   setInterval(() => renderNowCard(_itineraryData), 60000);
 

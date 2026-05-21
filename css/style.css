@@ -1429,3 +1429,111 @@ footer strong { color:var(--white); }
 .ql-text { display:flex; flex-direction:column; gap:2px; }
 .quicklink-card strong { font-size:1rem; color:var(--navy); }
 .quicklink-card .ql-text > span { font-size:.78rem; color:var(--text-mid); }
+
+/* ─── Save-to-My-Plan star (itinerary entries) ──────────────────────────── */
+.activity-save-label {
+  display:inline-flex;
+  align-items:center;
+  cursor:pointer;
+  margin-left:auto;
+  flex-shrink:0;
+  padding:2px 0 2px 8px;
+  align-self:center;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.activity-save-cb {
+  position:absolute;
+  opacity:0;
+  width:0; height:0;
+  pointer-events:none;
+}
+
+.activity-save-icon {
+  font-size:.95rem;
+  color:var(--text-light);
+  line-height:1;
+  transition:color .15s, transform .15s;
+  user-select:none;
+}
+
+.activity-save-label:hover .activity-save-icon,
+.activity-save-label:focus-within .activity-save-icon { color:var(--coral); transform:scale(1.2); }
+
+.activity-save-cb:checked + .activity-save-icon { color:var(--coral); }
+
+/* ─── My Plan page ───────────────────────────────────────────────────────── */
+.clear-activities-btn {
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  padding:7px 18px;
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  background:transparent;
+  color:var(--text-mid);
+  cursor:pointer;
+  transition:border-color .18s, color .18s;
+  margin-bottom:24px;
+  display:block;
+}
+.clear-activities-btn:hover { border-color:var(--coral); color:var(--coral); }
+
+.my-activities-day { margin-bottom:16px; }
+
+.my-activities-day-header {
+  font-family:'Playfair Display',serif;
+  font-size:1rem;
+  color:var(--white);
+  background:var(--navy);
+  padding:11px 18px;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+
+.my-activity-item {
+  background:var(--white);
+  border:1px solid var(--border);
+  border-top:none;
+  padding:14px 18px;
+}
+.my-activity-item:last-child { border-radius:0 0 var(--radius) var(--radius); }
+
+.my-activity-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:space-between;
+}
+
+.my-activity-info {
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:6px;
+  flex:1;
+  min-width:0;
+}
+
+.remove-activity-btn {
+  background:none;
+  border:1px solid var(--border);
+  border-radius:50%;
+  width:24px; height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.65rem;
+  color:var(--text-light);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background .15s, color .15s, border-color .15s;
+  font-family:'DM Sans',sans-serif;
+  line-height:1;
+  padding:0;
+}
+.remove-activity-btn:hover { background:#fff0ee; border-color:var(--coral); color:var(--coral); }
+
+@media (max-width:768px) {
+  .activity-save-label { padding:4px 0 4px 10px; }
+  .activity-save-icon  { font-size:1.05rem; }
+}
