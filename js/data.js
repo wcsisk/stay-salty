@@ -33,12 +33,12 @@ async function fetchSheet(url) {
 
   if (!table || !table.rows || table.rows.length < 4) return [];
 
-  const headers = (table.rows[2].c || []).map(getCellValue);
+  const headers = ((table.rows[2] && table.rows[2].c) || []).map(getCellValue);
 
   return table.rows.slice(3)
     .map(row => {
       const obj = {};
-      (row.c || []).forEach((cell, i) => {
+      ((row && row.c) || []).forEach((cell, i) => {
         const key = headers[i] || `col${i}`;
         obj[key] = getCellValue(cell);
       });
