@@ -14,9 +14,8 @@ function getCellValue(cell) {
 }
 
 // Fetches a Google Sheets gviz JSON feed.
-// Strips the /*O_o*/ JSONP wrapper, then uses the row at index 2 as column headers
-// (rows 0–1 are the merged title/subtitle in these sheets).
-async function fetchSheet(url) {
+// headerRow: index of the row to use as column headers (0 = first row, 2 = after two title rows).
+async function fetchSheet(url, headerRow = 0) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 10000);
   let resp;
@@ -31,11 +30,11 @@ async function fetchSheet(url) {
   const jsonStr = text.replace(/^[^\{]*/, '').replace(/\);\s*$/, '');
   const { table } = JSON.parse(jsonStr);
 
-  if (!table || !table.rows || table.rows.length < 4) return [];
+  if (!table || !table.rows || table.rows.length < headerRow + 2) return [];
 
-  const headers = ((table.rows[2] && table.rows[2].c) || []).map(getCellValue);
+  const headers = ((table.rows[headerRow] && table.rows[headerRow].c) || []).map(getCellValue);
 
-  return table.rows.slice(3)
+  return table.rows.slice(headerRow + 1)
     .map(row => {
       const obj = {};
       ((row && row.c) || []).forEach((cell, i) => {

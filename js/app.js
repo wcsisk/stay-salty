@@ -75,7 +75,7 @@ function renderItinerary(data) {
   // Group rows by Date, preserving order
   const days = {};
   for (const row of data) {
-    const date = row['Date'] || 'TBD';
+    const date = row['Date'] || row['col0'] || 'TBD';
     if (!days[date]) days[date] = { label: row['Day'] || '', entries: [] };
     days[date].entries.push(row);
   }
@@ -768,7 +768,7 @@ function renderNowCard(data) {
   const todayStr = now.toLocaleDateString('en-US', { month:'numeric', day:'numeric', year:'numeric' });
 
   const todayEntries = data.filter(e => {
-    const raw = e['Date'] || '';
+    const raw = e['Date'] || e['col0'] || '';
     if (!raw) return false;
     // Normalise the sheet date to the same locale string for comparison
     const d = new Date(raw);
@@ -846,17 +846,17 @@ async function init() {
 
   // Detect which data section(s) are on this page and load only those
   const pages = [
-    { id: 'itinerary', render: renderItinerary },
-    { id: 'dinners',   render: renderDinners   },
-    { id: 'outings',   render: renderOutings   },
-    { id: 'people',    render: renderPeople    },
-    { id: 'packing',   render: renderPacking   },
+    { id: 'itinerary', render: renderItinerary, headerRow: 0 },
+    { id: 'dinners',   render: renderDinners,   headerRow: 2 },
+    { id: 'outings',   render: renderOutings,   headerRow: 2 },
+    { id: 'people',    render: renderPeople,    headerRow: 2 },
+    { id: 'packing',   render: renderPacking,   headerRow: 2 },
   ];
 
   const active = pages.filter(p => document.getElementById(`${p.id}-content`));
   if (!active.length) return;
 
-  const results = await Promise.allSettled(active.map(p => fetchSheet(SHEET_URLS[p.id])));
+  const results = await Promise.allSettled(active.map(p => fetchSheet(SHEET_URLS[p.id], p.headerRow)));
   results.forEach((result, i) => {
     const { id, render } = active[i];
     if (result.status === 'fulfilled') {
